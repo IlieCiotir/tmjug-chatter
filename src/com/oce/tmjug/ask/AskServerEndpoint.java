@@ -29,12 +29,8 @@ public class AskServerEndpoint {
 	public void onMessage(Session session, final String message) {
 		for (Session t : session.getOpenSessions()) {
 
-			try {
-				if (t.isOpen()) {
-					t.getBasicRemote().sendText(message);
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
+			if (t.isOpen() && !session.equals(t)) {
+				t.getAsyncRemote().sendText(message);
 			}
 		}
 	}
