@@ -40,13 +40,10 @@ public class AskServerEndpoint {
 	public void onMessage(Session session, final String message) {
 		for (Session t : session.getOpenSessions()) {
 
-			if (!session.equals(t)) {
-				t.getAsyncRemote().sendText(
-						session.getUserProperties().get(session.getId())
-								.toString()
-								+ " said " + message);
+			t.getAsyncRemote().sendText(
+					session.getUserProperties().get(session.getId()).toString()
+							+ " said " + message);
 
-			}
 		}
 	}
 
